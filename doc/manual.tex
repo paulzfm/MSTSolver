@@ -1,0 +1,174 @@
+\documentclass[11pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+% fonts
+\usepackage{xeCJK}
+\setCJKmainfont[BoldFont=SimHei]{SimSun}
+\setCJKfamilyfont{hei}{SimHei}
+\setCJKfamilyfont{kai}{KaiTi}
+\setCJKfamilyfont{fang}{FangSong}
+\newcommand{\hei}{\CJKfamily{hei}}
+\newcommand{\kai}{\CJKfamily{kai}}
+\newcommand{\fang}{\CJKfamily{fang}}
+
+% style
+\usepackage[top=2.54cm, bottom=2.54cm, left=3.18cm, right=3.18cm]{geometry}
+\linespread{1.5}
+\parindent 2em
+\punctstyle{quanjiao}
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}
+
+% enum
+\usepackage{enumitem}
+\setenumerate[1]{itemsep=0pt,partopsep=0pt,parsep=\parskip,topsep=5pt}
+
+\usepackage{multirow}
+
+% start of document
+\title{\hei 《最小生成树求解器》设计报告}
+\author{\kai \quad 计35 \quad 朱俸民 \quad 2012011894}
+\date{\kai \today}
+
+\begin{document}
+
+	\maketitle
+
+	\section{程序简介}
+	
+	MST求解器(MST Solver)用于求解二维平面上的点所构成的最小生成树(Minimal Spanning Tree)。用户输入一系列点的坐标，程序可以求解出这些点构成的MST，并且将它绘制在画布区域，方便用户进行查看和修改。
+
+	本程序提供两种求解MST的方法：
+
+	{\hei 方法一} \quad 直接生成输入点的完全图，对完全图利用Prim算法求解。
+
+	{\hei 方法二} \quad 先利用Clarkson-Delaunay算法求出输入点的三角剖分，再对此三角剖分对应的无向图利用Prim算法求解。
+
+	\section{特色}
+
+	\begin{enumerate}
+		\item 支持多种方式读入数据：数据文件、随机生成、输入坐标以及在画布上绘制。
+		\item 数据加载后，用户可随时对已经加载的样本进行编辑：添加、删除和移动。提供了样本坐标列表以便进行快速编辑。
+		\item 支持两种求解算法的选择：即可选择其一，也可两者皆选以便测试和比较。
+		\item 自动记录求解过程的算法执行时间，并生成报告。
+		\item 画布区域支持缩放和拖动，并支持快速定位与图形显示自适应。
+		\item 求解结果可视化。求解完成后，用户可查看MST。如果用户使用了{\hei 方法二}求解，还可以查看三角剖分图。
+		\item 大部分功能设有快捷键，以便有经验的用户进行快速操作。
+	\end{enumerate}
+
+	\section{功能介绍}
+		
+		\subsection{样例载入(Load problem)}
+		
+		本程序提供以下三种载入方式：
+
+		1. 从文件载入(From file)：选择一个本地的样例文件，此样例文件需要满足一定的格式(参见“样本文件”部分)。
+
+		2. 随机生成(From random sample)：使用程序提供的样例生成器(Sample Generator)，指定点的数据类型（整数或小数）、样本大小（6——20000）和存储文件的路径，即可加载此生成的样例。
+
+		3. 手动绘制(Manually)：直接在画布上进行点的绘制。
+
+		\subsection{样本编辑}
+
+		在样例载入之后，用户可以随时编辑已经载入的样本点。编辑的方式可以分为两种：画布编辑和菜单编辑。
+
+		{\hei 画布编辑} \quad 利用此方法编辑样本，用户需要在两种模式中切换：正常模式(Normal mode)和清除模式(Remove mode)。在正常模式，用户将鼠标移动至某一位置按下后，即在此处添加一个点。若用户选中某点进行拖动，则该点将被移动至鼠标弹开的位置。在清除模式，用户需要选中待删除的点，当该点变亮时单击，即可删除该点。
+
+		{\hei 菜单编辑} \quad 此方法需要使用到Sample菜单项的一些命令：
+
+		1. Add a point \quad 添加一个点。
+
+		2. Add points  \quad 添加多个点。
+
+		3. Remove a point \quad 在列表中选中一个点，再使用此命令删除。
+
+		4. Remove points  \quad 使用此命令后，列表呈现多选状态，用户通过依次选中待删除的点后，单击列表下方的Remove按钮即可删除所选择的所有点。
+
+		5. Edit a point \quad 在列表中选中一个点，再使用此命令修改点的坐标。用户也可通过双击列表上的点来进行编辑。
+
+		6. Clear  \quad 清除当前的所有样本点。
+
+		\subsection{图形查看}
+
+		程序中央部分的画布用于实时查看所有的样本点位置以及生成的MST和三角剖分图。为了更加方便的查看，用户可以对画布区域进行如下的操作：
+
+		1. 缩放 \quad 使用鼠标滚轮或者拖动画布左侧的滑动条可以对画布区域进行缩放。如果用户需要更加精确的调整，可以使用视图(View)菜单或工具栏中的放大(Magnify)和缩小(Narrow)命令。
+
+		2. 移动 \quad 用户需要先切换至移动模式(Move mode)，它可以在视图菜单或者工具栏中找到。当光标变为手型时，拖动画布，即可移动。
+
+		3. 快速定位 \quad 此功能可以迅速定位至用户需要查看的区域。首先，从视图菜单或者工具栏切换至定位模式(Locale mode)。移动鼠标至要定位的样本点，会发现画布中该点被点亮，单击该点，画布会自动调整，使该点位于画布的中心。
+
+		4. 自适应(Suitable scale) \quad 此功能可以自动缩放和移动画布，使样本点尽量分散显示在画布区域中。
+
+		\subsection{问题求解}
+
+		载入和修改好样本后，用户只需执行Solver菜单或者工具栏的求解(solve)命令来求解。由于本程序提供了两种方法，用户可以在算法(Algorithm)选项中设置所使用的算法，也可把两者都勾选上，这样就会利用两种算法各求解一次。用户还可以通过偏好设置(Preference)菜单选择默认的算法。
+
+		求出解后，画布区域会自动显示得到的MST。用户可以从这四种视图模式中选择，查看所需要的图：
+
+		1. Sample view \quad 仅显示样本点
+
+		2. MST view \quad 显示MST与样本点
+
+		3. Graph view \quad 显示三角剖分图与样本点（需使用{\hei 方法二}）
+
+		4. MST with view \quad 显示MST、三角剖分图以及样本点（需使用{\hei 方法二}）
+
+		这些均可以在视图菜单或者工具栏中找到。
+
+		请{\hei 注意}：用户在求解后，依然可以继续使用此样本进行再编辑，或者换用其他方法后再次求解。
+
+		\subsection{测试报告}
+
+		在求解过程中，本程序已经自动记录下了算法执行的时间，用户可以通过Solver菜单的Result $\rightarrow$ Show命令进行查看，还可以通过Save as命令保存测试报告。
+
+	\section{样本文件}
+
+	本程序支持直接从本地载入样本点文件进行求解。样本文件需要满足如下的格式要求：
+
+	1. 文件开头可以有注释，注释行需要以井号(\#)开头；
+
+	2. 样本数据部分的第一行为一个整数$n$，表示此文件的样本大小，即点的个数（或者用户需要测试的点数目，此时自动载入前$n$个样本点）；
+
+	3. 接下来有$2n$个数（整数和小数皆可），数与数之间用空格、TAB或者换行等隔开，这些数字会依次解析为第1个点的X坐标，第1个点的Y坐标，$\ldots$，第$n$个点的X坐标，第$n$个点的Y坐标。为方便查看，强烈建议按照共$n$行，每行2个用空格分开的数字，分别表示该点的X坐标和Y坐标的格式来输入数据。程序自带的样例生成器所生成的文件就符合这样的格式；
+
+	4. 为便于样本的显示，程序要求所提供的样本点中不能有特别接近甚至完全相同的点，即点与点之间的横、纵坐标的差不能小于1.0。程序会在加载样本文件以及用户修改样本的时候进行检测，不符合标准的样本将无法进行求解。
+
+	\section{测试结果}
+
+	以下是采用随机样本，对两种求解方法进行测试的结果：（衡量标准为运行时间，单位：秒）
+
+	\begin{center}
+        \begin{tabular}{|c|c|c|c|c|c|}
+            \hline
+            \multicolumn{1}{|c|}{\multirow{2}*{\kai 样本大小}} &
+            \multicolumn{1}{|c|}{\multirow{2}*{\kai 方法一}} &
+            \multicolumn{3}{|c|}{\kai 方法二} &
+            \multicolumn{1}{|c|}{\multirow{2}*{\kai 更快的方法}}	\\
+            \cline{3-5}
+            \multicolumn{1}{|c|}{} &
+            \multicolumn{1}{|c|}{} &
+            {\kai 三角剖分} & Prim & {\kai 总计} &
+            \multicolumn{1}{|c|}{} \\
+            \hline
+            100 & 0.000265 & 0.001498 & 0.000135 & 0.001633 & {\kai 方法一} 	\\
+            \hline
+            1000 & 0.023703 & 0.013868 & 0.010101 & 0.023969 & {\kai 方法一}    \\
+            \hline
+            5000 & 0.516154 & 0.082384 & 0.254978 & 0.337362 & {\kai 方法二}      \\
+            \hline
+            10000 & 2.060580 & 0.190668 & 1.037330 & 1.228000 & {\kai 方法二}    \\ 
+            \hline
+            20000 & 8.323420 & 0.420125 & 4.290440 & 4.710560 & {\kai 方法二}	\\
+            \hline
+        \end{tabular}
+    \end{center}
+
+	由于本程序采用的Prim算法进行了优化，实际的复杂度小于$O(n^2)$，故即使样本较大时依然可以较为快速的求解。但是通过三角剖分处理后的图，显然比完全图“小”很多，故再调用Prim算法搜索时，时间也大大减少了。
+
+	\section{联系作者}
+
+	电子邮箱：\texttt{zhufengminpaul@163.com}
+
+\end{document}

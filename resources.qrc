@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ico/from_file.png</file>
+        <file>ico/from_random.png</file>
+        <file>ico/move_mode.png</file>
+        <file>ico/normal_mode.png</file>
+        <file>ico/remove_mode.png</file>
+        <file>ico/setting.png</file>
+        <file>ico/add_a_point.png</file>
+        <file>ico/delete_a_point.png</file>
+        <file>ico/mst.png</file>
+        <file>ico/graph.png</file>
+        <file>ico/samples.png</file>
+        <file>ico/mst_and_graph.png</file>
+        <file>ico/empty</file>
+        <file>ico/exit.png</file>
+        <file>ico/slove.png</file>
+        <file>ico/about</file>
+        <file>ico/scale_minus.png</file>
+        <file>ico/scale_plus.png</file>
+        <file>ico/locale.png</file>
+    </qresource>
+</RCC>

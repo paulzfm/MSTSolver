@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>813</width>
+    <height>452</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="cursor">
+    <cursorShape>CrossCursor</cursorShape>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_load_sample_file"/>
+   <addaction name="action_load_random_sample"/>
+   <addaction name="separator"/>
+   <addaction name="action_solve"/>
+   <addaction name="separator"/>
+   <addaction name="action_add_a_point"/>
+   <addaction name="action_remove_a_point"/>
+   <addaction name="separator"/>
+   <addaction name="action_drawing_add"/>
+   <addaction name="action_drawing_move"/>
+   <addaction name="action_drawing_remove"/>
+   <addaction name="action_locale_mode"/>
+   <addaction name="separator"/>
+   <addaction name="action_sample_view"/>
+   <addaction name="action_mst_view"/>
+   <addaction name="action_mst_with_graph_view"/>
+   <addaction name="action_graph_view"/>
+   <addaction name="separator"/>
+   <addaction name="action_magnify_scale"/>
+   <addaction name="action_narrow_scale"/>
+   <addaction name="separator"/>
+   <addaction name="action_quit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>813</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_solver">
+    <property name="title">
+     <string>Solver</string>
+    </property>
+    <widget class="QMenu" name="menu_load_problem">
+     <property name="title">
+      <string>Load problem</string>
+     </property>
+     <property name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+     </property>
+     <addaction name="action_load_sample_file"/>
+     <addaction name="action_load_random_sample"/>
+     <addaction name="action_load_manually"/>
+    </widget>
+    <widget class="QMenu" name="menu_algorithm_selection">
+     <property name="title">
+      <string>Algorithm</string>
+     </property>
+     <property name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+     </property>
+     <addaction name="action_m1"/>
+     <addaction name="action_m2"/>
+    </widget>
+    <widget class="QMenu" name="menu_results">
+     <property name="title">
+      <string>Result</string>
+     </property>
+     <property name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+     </property>
+     <addaction name="action_show_results"/>
+     <addaction name="action_save_results"/>
+    </widget>
+    <addaction name="menu_load_problem"/>
+    <addaction name="menu_algorithm_selection"/>
+    <addaction name="action_solve"/>
+    <addaction name="menu_results"/>
+    <addaction name="separator"/>
+    <addaction name="action_quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_sample">
+    <property name="title">
+     <string>Sample</string>
+    </property>
+    <addaction name="action_add_a_point"/>
+    <addaction name="action_add_points"/>
+    <addaction name="action_remove_a_point"/>
+    <addaction name="action_remove_points"/>
+    <addaction name="action_edit"/>
+    <addaction name="separator"/>
+    <addaction name="action_clear_all_points"/>
+    <addaction name="separator"/>
+    <addaction name="action_generate_random_sample"/>
+   </widget>
+   <widget class="QMenu" name="menu_view">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="action_drawing_add"/>
+    <addaction name="action_drawing_remove"/>
+    <addaction name="action_drawing_move"/>
+    <addaction name="action_locale_mode"/>
+    <addaction name="action_drawing_multi_select"/>
+    <addaction name="separator"/>
+    <addaction name="action_sample_view"/>
+    <addaction name="action_mst_view"/>
+    <addaction name="action_graph_view"/>
+    <addaction name="action_mst_with_graph_view"/>
+    <addaction name="separator"/>
+    <addaction name="action_set_scale"/>
+    <addaction name="action_set_to_normal_scale_100"/>
+    <addaction name="action_set_to_suitable_scale"/>
+    <addaction name="action_magnify_scale"/>
+    <addaction name="action_narrow_scale"/>
+    <addaction name="separator"/>
+    <addaction name="action_scale_slider_hide_or_show"/>
+   </widget>
+   <widget class="QMenu" name="menuPreference">
+    <property name="title">
+     <string>Preference</string>
+    </property>
+    <addaction name="action_preference"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="action_about"/>
+   </widget>
+   <addaction name="menu_solver"/>
+   <addaction name="menu_sample"/>
+   <addaction name="menu_view"/>
+   <addaction name="menuPreference"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QDockWidget" name="dock">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="cursor">
+    <cursorShape>ArrowCursor</cursorShape>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+   </widget>
+  </widget>
+  <action name="action_load_sample_file">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/from_file.png</normaloff>:/ico/from_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>From file</string>
+   </property>
+   <property name="toolTip">
+    <string>Load sample from file</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+O</string>
+   </property>
+  </action>
+  <action name="action_load_random_sample">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/from_random.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>From random sample</string>
+   </property>
+   <property name="toolTip">
+    <string>Load sample randomly</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+N</string>
+   </property>
+  </action>
+  <action name="action_load_manually">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/normal_mode.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Manually</string>
+   </property>
+   <property name="toolTip">
+    <string>Load sample manually</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+M</string>
+   </property>
+  </action>
+  <action name="action_solve">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/slove.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Solve</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+S</string>
+   </property>
+  </action>
+  <action name="action_quit">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/exit.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="action_show_results">
+   <property name="text">
+    <string>Show</string>
+   </property>
+   <property name="toolTip">
+    <string>Show report</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+R</string>
+   </property>
+  </action>
+  <action name="action_save_results">
+   <property name="text">
+    <string>Save as</string>
+   </property>
+   <property name="toolTip">
+    <string>Save report</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Shift+R</string>
+   </property>
+  </action>
+  <action name="action_add_a_point">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/add_a_point.png</normaloff>
+     <normalon>:/ico/add_a_point.png</normalon>:/ico/add_a_point.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add a point</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+A</string>
+   </property>
+  </action>
+  <action name="action_add_points">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>
+     <normalon>:/ico/delete_a_point.png</normalon>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Add points</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Shift+A</string>
+   </property>
+  </action>
+  <action name="action_remove_a_point">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/delete_a_point.png</normaloff>:/ico/delete_a_point.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove a point</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+D</string>
+   </property>
+  </action>
+  <action name="action_remove_points">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Remove points</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Shift+D</string>
+   </property>
+  </action>
+  <action name="action_drawing_add">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/normal_mode.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Normal mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Change to normal mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+N</string>
+   </property>
+  </action>
+  <action name="action_clear_all_points">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Clear all</string>
+   </property>
+   <property name="toolTip">
+    <string>Clear all points</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+C</string>
+   </property>
+  </action>
+  <action name="action_generate_random_sample">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/from_random.png</normaloff>:/ico/from_random.png</iconset>
+   </property>
+   <property name="text">
+    <string>Generate random sample</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+G</string>
+   </property>
+  </action>
+  <action name="action_m1">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Prim only</string>
+   </property>
+   <property name="toolTip">
+    <string>Using Prim only</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+P</string>
+   </property>
+  </action>
+  <action name="action_m2">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Prim with Delaunay</string>
+   </property>
+   <property name="toolTip">
+    <string>Using Prim with Delaunay</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+D</string>
+   </property>
+  </action>
+  <action name="action_edit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Edit a point</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+E</string>
+   </property>
+  </action>
+  <action name="action_drawing_multi_select">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Multi-select mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Multi-select mode</string>
+   </property>
+  </action>
+  <action name="action_drawing_remove">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/remove_mode.png</normaloff>:/ico/remove_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Change to remove mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+R</string>
+   </property>
+  </action>
+  <action name="action_drawing_move">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/move_mode.png</normaloff>:/ico/move_mode.png</iconset>
+   </property>
+   <property name="text">
+    <string>Move mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Change to move mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+M</string>
+   </property>
+  </action>
+  <action name="action_sample_view">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/samples.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Sample view</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+S</string>
+   </property>
+  </action>
+  <action name="action_mst_view">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/mst.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>MST view</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+T</string>
+   </property>
+  </action>
+  <action name="action_graph_view">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/graph.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Graph view</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+G</string>
+   </property>
+  </action>
+  <action name="action_mst_with_graph_view">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/mst_and_graph.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>MST with graph</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+A</string>
+   </property>
+  </action>
+  <action name="action_set_scale">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Scale</string>
+   </property>
+   <property name="toolTip">
+    <string>Scale setting</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+`</string>
+   </property>
+  </action>
+  <action name="action_set_to_normal_scale_100">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Normal scale (100%)</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+1</string>
+   </property>
+  </action>
+  <action name="action_set_to_suitable_scale">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Suitable scale</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+0</string>
+   </property>
+  </action>
+  <action name="action_preference">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/setting.png</normaloff>
+     <normalon>:/ico/setting.png</normalon>:/ico/setting.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preference</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+P</string>
+   </property>
+  </action>
+  <action name="action_scale_slider_hide_or_show">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/empty</normaloff>:/ico/empty</iconset>
+   </property>
+   <property name="text">
+    <string>Hide scale slider</string>
+   </property>
+   <property name="toolTip">
+    <string>Hide or show scale slider</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+Shift+Space</string>
+   </property>
+  </action>
+  <action name="action_about">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/ico/about</normaloff>:/ico/about</iconset>
+   </property>
+   <property name="text">
+    <string>About...</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+I</string>
+   </property>
+  </action>
+  <action name="action_magnify_scale">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/scale_plus.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Magnify</string>
+   </property>
+   <property name="toolTip">
+    <string>Magnify scale</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+=</string>
+   </property>
+  </action>
+  <action name="action_narrow_scale">
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/scale_minus.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Narrow</string>
+   </property>
+   <property name="toolTip">
+    <string>Narrow scale</string>
+   </property>
+   <property name="shortcut">
+    <string>Meta+-</string>
+   </property>
+  </action>
+  <action name="action_locale_mode">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/ico/locale.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Locale mode</string>
+   </property>
+   <property name="toolTip">
+    <string>Change to quick locale mode</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+L</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
